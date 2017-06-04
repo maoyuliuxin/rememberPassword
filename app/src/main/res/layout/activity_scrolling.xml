@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
+            app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="账户详情"/>
 
