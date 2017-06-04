@@ -1,5 +1,6 @@
 package com.lin.rememberpassword.ui.main;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.lin.rememberpassword.R;
+import com.lin.rememberpassword.Utils.DialogUtil;
 import com.lin.rememberpassword.Utils.DipAddPxUtils;
 import com.lin.rememberpassword.Utils.UtilsViewHolder;
 import com.lin.rememberpassword.bean.PasswordBean;
@@ -15,7 +17,9 @@ import com.lin.rememberpassword.db.DbRememberPassWord;
 import com.lin.rememberpassword.mvp.BasePresenterImpl;
 import com.lin.rememberpassword.ui.add.AddActivity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * MVPPlugin
@@ -25,6 +29,7 @@ import java.util.List;
 public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private MainAdapter mAdapter;
+    private Set<String> mTypes;
 
     @Override
     public void initData() {
@@ -33,6 +38,14 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
         mView.getList().setAdapter(mAdapter);
         mView.getList().setDividerHeight(DipAddPxUtils.dpToPx(mView.getContext(), 10));
         mView.getList().setOnItemClickListener(this);
+        initSet(passwordBeans);
+    }
+
+    private void initSet(List<PasswordBean> passwordBeans) {
+        mTypes = new HashSet<>();
+        for (PasswordBean passwordBean : passwordBeans) {
+            mTypes.add(passwordBean.getTabName());
+        }
     }
 
     @Override
@@ -47,6 +60,10 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
                 AddActivity.start(mView.getActivity());
                 break;
             case R.id.select:
+                seletType();
+                break;
+            case R.id.select_all:
+                mAdapter.setPasswordBeans(DbRememberPassWord.get().queryList());
                 break;
             case R.id.delete_selector:
                 break;
@@ -55,6 +72,17 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
                 mAdapter.setPasswordBeans(null);
                 break;
         }
+    }
+
+    private void seletType() {
+        final String[] strings = mTypes.toArray(new String[mTypes.size()]);
+        DialogUtil.setItemDialog(mView.getContext(), strings, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mAdapter.setPasswordBeans(DbRememberPassWord.get().queryList(strings[which]));
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override

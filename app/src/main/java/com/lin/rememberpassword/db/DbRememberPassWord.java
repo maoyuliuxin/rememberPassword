@@ -35,6 +35,14 @@ public class DbRememberPassWord {
         return list;
     }
 
+    public List<PasswordBean> queryList(String tabName) {
+        List<PasswordBean> list = mPasswordBeanDao.queryBuilder()
+                .where(PasswordBeanDao.Properties.TabName.eq(tabName))
+                .build()
+                .list();
+        return list;
+    }
+
     public PasswordBean getBeanById(Long id) {
         PasswordBean load = mPasswordBeanDao.load(id);
         return load;

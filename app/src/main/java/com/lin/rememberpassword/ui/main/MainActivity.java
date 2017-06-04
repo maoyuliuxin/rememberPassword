@@ -57,6 +57,9 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             case R.id.select:
                 mPresenter.onClick(R.id.select);
                 break;
+            case R.id.select_all:
+                mPresenter.onClick(R.id.select_all);
+                break;
             case R.id.delete_selector:
                 mPresenter.onClick(R.id.delete_selector);
                 break;
