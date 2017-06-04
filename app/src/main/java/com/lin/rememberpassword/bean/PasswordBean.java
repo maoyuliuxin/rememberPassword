@@ -7,6 +7,7 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Transient;
 
 /**
  * Created by Administrator on 2017/6/4 0004.
@@ -38,6 +39,9 @@ public class PasswordBean {
     @Property
     private String tag3;
 
+    @Transient
+    private boolean isShowDelete;
+
     @Generated(hash = 1542250000)
     public PasswordBean() {
     }
@@ -56,6 +60,14 @@ public class PasswordBean {
         this.tag2 = tag2;
         this.tag3Name = tag3Name;
         this.tag3 = tag3;
+    }
+
+    public boolean isShowDelete() {
+        return isShowDelete;
+    }
+
+    public void setShowDelete(boolean showDelete) {
+        isShowDelete = showDelete;
     }
 
     @Nullable
