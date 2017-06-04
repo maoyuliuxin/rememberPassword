@@ -67,6 +67,10 @@ public class DbRememberPassWord {
         mPasswordBeanDao.deleteByKey(id);
     }
 
+    public void deleteAll() {
+        mPasswordBeanDao.deleteAll();
+    }
+
     public void update(Long id, String tabName, String number, String passWord, String date, String tag1Name, String tag1,
                        String tag2Name, String tag2, String tag3Name, String tag3) {
         PasswordBean load = mPasswordBeanDao.load(id);
