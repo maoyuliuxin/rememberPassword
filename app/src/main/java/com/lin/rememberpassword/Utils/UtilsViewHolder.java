@@ -2,6 +2,7 @@ package com.lin.rememberpassword.Utils;
 
 import android.support.annotation.LayoutRes;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ public class UtilsViewHolder {
     public static UtilsViewHolder create(View convertView, ViewGroup parent, @LayoutRes int resId) {
         UtilsViewHolder holder = null;
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), resId, null);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
             holder = new UtilsViewHolder(convertView);
             convertView.setTag(holder);
         }

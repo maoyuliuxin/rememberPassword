@@ -28,8 +28,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     Toolbar mToolbar;
     @BindView(R.id.list_view)
     ListView mListView;
-    @BindView(R.id.fab)
-    FloatingActionButton mFab;
 
     @Override
     public int getLayoutId() {
@@ -84,6 +82,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public FloatingActionButton getFAB() {
-        return mFab;
+        return null;
     }
 }

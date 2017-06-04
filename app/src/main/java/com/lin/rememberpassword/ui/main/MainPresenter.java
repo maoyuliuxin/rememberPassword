@@ -3,11 +3,12 @@ package com.lin.rememberpassword.ui.main;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.lin.rememberpassword.R;
-import com.lin.rememberpassword.Utils.ToastUtils;
+import com.lin.rememberpassword.Utils.DipAddPxUtils;
 import com.lin.rememberpassword.Utils.UtilsViewHolder;
 import com.lin.rememberpassword.bean.PasswordBean;
 import com.lin.rememberpassword.db.DbRememberPassWord;
@@ -21,7 +22,7 @@ import java.util.List;
  * 邮箱 784787081@qq.com
  */
 
-public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, View.OnClickListener {
+public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private MainAdapter mAdapter;
 
@@ -30,11 +31,13 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
         List<PasswordBean> passwordBeans = DbRememberPassWord.get().queryList();
         mAdapter = new MainAdapter(passwordBeans);
         mView.getList().setAdapter(mAdapter);
+        mView.getList().setDividerHeight(DipAddPxUtils.dpToPx(mView.getContext(), 10));
+        mView.getList().setOnItemClickListener(this);
     }
 
     @Override
     public void initView() {
-        mView.getFAB().setOnClickListener(this);
+
     }
 
     @Override
@@ -62,10 +65,13 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab:
-                ToastUtils.toast("请添加表单");
-                break;
+
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        AddActivity.start(mView.getActivity(), mAdapter.getItemId(position));
     }
 
     private static class MainAdapter extends BaseAdapter {
