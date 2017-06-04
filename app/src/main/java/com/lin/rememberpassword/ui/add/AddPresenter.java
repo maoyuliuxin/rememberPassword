@@ -3,10 +3,12 @@ package com.lin.rememberpassword.ui.add;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 
 import com.lin.rememberpassword.Utils.DialogUtil;
+import com.lin.rememberpassword.Utils.ToastUtils;
 import com.lin.rememberpassword.Utils.WenTiStringUtils;
 import com.lin.rememberpassword.bean.PasswordBean;
 import com.lin.rememberpassword.db.DbRememberPassWord;
@@ -121,6 +123,10 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
 
     @Override
     public void onFinish() {
+        if (TextUtils.isEmpty(mView.getTabName().getContent()) || TextUtils.isEmpty(mView.getDate().getContent()) || TextUtils.isEmpty(mView.getNumber().getContent()) || TextUtils.isEmpty(mView.getPsd().getContent())) {
+            ToastUtils.toast("请输入必填项：账户类型、账户、密码已经日期");
+            return;
+        }
         long id = mView.getIntent().getLongExtra(AddActivity.ID_DATA, -1);
         if (id == -1) {
             DbRememberPassWord.get().insert(mView.getTabName().getContent(),

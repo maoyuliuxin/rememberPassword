@@ -48,4 +48,13 @@
         android:textColor="#888"
         android:textSize="14sp"/>
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:textColor="#888"
+        android:textSize="14sp"/>
+
 </LinearLayout>

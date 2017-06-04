@@ -112,6 +112,7 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
             type.setText("账户类型: " + passwordBean.getTabName());
             holder.getTextView(R.id.tv_number).setText("账户账号: " + passwordBean.getNumber());
             holder.getTextView(R.id.tv_psw).setText("账户密码: " + passwordBean.getPassWord());
+            holder.getTextView(R.id.tv_date).setText("注册日期: " + passwordBean.getDate());
             return holder.convertView;
         }
     }

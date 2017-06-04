@@ -1,9 +1,6 @@
 package com.lin.rememberpassword.db;
 
-import android.text.TextUtils;
-
 import com.lin.rememberpassword.MyApplication;
-import com.lin.rememberpassword.Utils.ToastUtils;
 import com.lin.rememberpassword.bean.PasswordBean;
 import com.lin.rememberpassword.bean.PasswordBeanDao;
 
@@ -45,10 +42,6 @@ public class DbRememberPassWord {
 
     public void insert(String tabName, String number, String passWord, String date, String tag1Name, String tag1,
                        String tag2Name, String tag2, String tag3Name, String tag3) {
-        if (TextUtils.isEmpty(number) || TextUtils.isEmpty(passWord) || TextUtils.isEmpty(date)) {
-            ToastUtils.toast("请输入必填项：账户与密码");
-            return;
-        }
         PasswordBean passwordBean = new PasswordBean();
         passwordBean.setTabName(tabName);
         passwordBean.setNumber(number);
