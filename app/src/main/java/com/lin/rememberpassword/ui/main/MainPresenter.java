@@ -26,7 +26,7 @@ import java.util.Set;
  * 邮箱 784787081@qq.com
  */
 
-public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainPresenter extends BasePresenterImpl<MainContract.View> implements MainContract.Presenter, View.OnClickListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private MainAdapter mAdapter;
     private Set<String> mTypes;
@@ -38,6 +38,7 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
         mView.getList().setAdapter(mAdapter);
         mView.getList().setDividerHeight(DipAddPxUtils.dpToPx(mView.getContext(), 10));
         mView.getList().setOnItemClickListener(this);
+        mView.getList().setOnItemLongClickListener(this);
         initSet(passwordBeans);
     }
 
@@ -102,6 +103,30 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AddActivity.start(mView.getActivity(), mAdapter.getItemId(position));
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        DialogUtil.setDialog(mView.getContext(),
+                "提示",
+                "是否删除该条数据",
+                "确认",
+                "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DbRememberPassWord.get().delete(mAdapter.getItemId(position));
+                        mAdapter.setPasswordBeans(DbRememberPassWord.get().queryList());
+                        dialog.dismiss();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        return true;
     }
 
     private static class MainAdapter extends BaseAdapter {

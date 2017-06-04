@@ -15,4 +15,13 @@ public class DialogUtil {
         builder.setItems(items, onClickListener);
         builder.show();
     }
+
+    public  static void setDialog(Context context, String title,String msg,String positive,String negative, DialogInterface.OnClickListener positiveClickListener,DialogInterface.OnClickListener negativeClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(msg);
+        builder.setPositiveButton(positive,positiveClickListener);
+        builder.setNegativeButton(negative,negativeClickListener);
+        builder.show();
+    }
 }
