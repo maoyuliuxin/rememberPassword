@@ -4,6 +4,7 @@ package com.lin.rememberpassword.ui.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.lin.rememberpassword.R;
+import com.lin.rememberpassword.Utils.ToastUtils;
 import com.lin.rememberpassword.mvp.MVPBaseActivity;
 import com.lin.rememberpassword.ui.add.AddActivity;
 
@@ -88,5 +90,18 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     @Override
     public FloatingActionButton getFAB() {
         return null;
+    }
+
+    private long mPreTime;
+
+    @Override
+    public void onBackPressed() {
+        long curTime = SystemClock.elapsedRealtime();
+        if (curTime - mPreTime > 1500) {
+            ToastUtils.toast("再次点击退出");
+            mPreTime = curTime;
+        } else {
+            super.onBackPressed();
+        }
     }
 }

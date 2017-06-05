@@ -3,12 +3,10 @@ package com.lin.rememberpassword.ui.splash;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.TextView;
 
 import com.lin.rememberpassword.R;
 import com.lin.rememberpassword.mvp.MVPBaseActivity;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -18,9 +16,6 @@ import butterknife.OnClick;
  */
 
 public class SplashActivity extends MVPBaseActivity<SplashContract.View, SplashPresenter> implements SplashContract.View {
-
-    @BindView(R.id.tv_jiesuo)
-    TextView mTvJiesuo;
 
     @Override
     public int getLayoutId() {
