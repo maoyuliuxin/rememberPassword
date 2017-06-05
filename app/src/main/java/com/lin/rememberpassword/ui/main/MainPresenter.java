@@ -67,8 +67,6 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
             case R.id.select_all:
                 mAdapter.setPasswordBeans(DbRememberPassWord.get().queryList());
                 break;
-            case R.id.delete_selector:
-                break;
             case R.id.delete_all:
                 DbRememberPassWord.get().deleteAll();
                 mAdapter.setPasswordBeans(null);

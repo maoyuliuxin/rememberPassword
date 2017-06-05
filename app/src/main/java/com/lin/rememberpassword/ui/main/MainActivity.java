@@ -1,6 +1,7 @@
 package com.lin.rememberpassword.ui.main;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,10 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     Toolbar mToolbar;
     @BindView(R.id.list_view)
     ListView mListView;
+
+    public static void start(Activity activity) {
+        activity.startActivity(new Intent(activity, MainActivity.class));
+    }
 
     @Override
     public int getLayoutId() {
@@ -59,9 +64,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
                 break;
             case R.id.select_all:
                 mPresenter.onClick(R.id.select_all);
-                break;
-            case R.id.delete_selector:
-                mPresenter.onClick(R.id.delete_selector);
                 break;
             case R.id.delete_all:
                 mPresenter.onClick(R.id.delete_all);
