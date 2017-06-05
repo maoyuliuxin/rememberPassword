@@ -18,8 +18,10 @@ public class PasswordBean {
 
     @Id(autoincrement = true)
     private Long id;
-    @Property
+    @NotNull
     private String tabName;
+    @NotNull
+    private String type;
     @NotNull
     private String number;
     @NotNull
@@ -46,11 +48,12 @@ public class PasswordBean {
     public PasswordBean() {
     }
 
-    @Generated(hash = 1432181262)
-    public PasswordBean(Long id, String tabName, @NotNull String number, @NotNull String passWord, @NotNull String date, String tag1Name, String tag1, String tag2Name, String tag2,
+    @Generated(hash = 835592231)
+    public PasswordBean(Long id, @NotNull String tabName, @NotNull String type, @NotNull String number, @NotNull String passWord, @NotNull String date, String tag1Name, String tag1, String tag2Name, String tag2,
             String tag3Name, String tag3) {
         this.id = id;
         this.tabName = tabName;
+        this.type = type;
         this.number = number;
         this.passWord = passWord;
         this.date = date;
@@ -60,6 +63,14 @@ public class PasswordBean {
         this.tag2 = tag2;
         this.tag3Name = tag3Name;
         this.tag3 = tag3;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public boolean isShowDelete() {
@@ -160,12 +171,12 @@ public class PasswordBean {
         this.tag3 = tag3;
     }
 
-
     @Override
     public String toString() {
         return "PasswordBean{" +
                 "id=" + id +
                 ", tabName='" + tabName + '\'' +
+                ", type='" + type + '\'' +
                 ", number='" + number + '\'' +
                 ", passWord='" + passWord + '\'' +
                 ", date='" + date + '\'' +
@@ -175,6 +186,7 @@ public class PasswordBean {
                 ", tag2='" + tag2 + '\'' +
                 ", tag3Name='" + tag3Name + '\'' +
                 ", tag3='" + tag3 + '\'' +
+                ", isShowDelete=" + isShowDelete +
                 '}';
     }
 }

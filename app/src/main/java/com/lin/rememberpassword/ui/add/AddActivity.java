@@ -50,6 +50,8 @@ public class AddActivity extends MVPBaseActivity<AddContract.View, AddPresenter>
     InputItemView mInputTag3;
     @BindView(R.id.tv_finish)
     TextView mTvFinish;
+    @BindView(R.id.input_type)
+    InputItemView mInputType;
 
     public static void start(Activity context) {
         context.startActivityForResult(new Intent(context, AddActivity.class), OPEN_ADD);
@@ -78,6 +80,11 @@ public class AddActivity extends MVPBaseActivity<AddContract.View, AddPresenter>
         });
         mPresenter.initView();
         mPresenter.initData();
+    }
+
+    @Override
+    public InputItemView getType() {
+        return mInputType;
     }
 
     @Override

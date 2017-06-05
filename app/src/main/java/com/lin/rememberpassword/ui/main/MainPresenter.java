@@ -45,8 +45,9 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
     private void initSet(List<PasswordBean> passwordBeans) {
         mTypes = new HashSet<>();
         for (PasswordBean passwordBean : passwordBeans) {
-            mTypes.add(passwordBean.getTabName());
+            mTypes.add(passwordBean.getType());
         }
+        Log.e("shen", "mTypes=" + mTypes);
     }
 
     @Override
@@ -91,6 +92,7 @@ public class MainPresenter extends BasePresenterImpl<MainContract.View> implemen
         List<PasswordBean> passwordBeans = DbRememberPassWord.get().queryList();
         Log.e("shen", "passwordBeans=" + passwordBeans);
         mAdapter.setPasswordBeans(passwordBeans);
+        initSet(passwordBeans);
     }
 
     @Override

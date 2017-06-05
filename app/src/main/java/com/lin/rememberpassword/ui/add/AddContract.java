@@ -13,6 +13,8 @@ import com.lin.rememberpassword.widget.InputItemView;
 
 public class AddContract {
     interface View extends BaseView {
+        InputItemView getType();
+
         InputItemView getTabName();
 
         InputItemView getNumber();

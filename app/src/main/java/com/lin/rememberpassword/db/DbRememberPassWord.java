@@ -1,5 +1,7 @@
 package com.lin.rememberpassword.db;
 
+import android.util.Log;
+
 import com.lin.rememberpassword.MyApplication;
 import com.lin.rememberpassword.bean.PasswordBean;
 import com.lin.rememberpassword.bean.PasswordBeanDao;
@@ -35,9 +37,9 @@ public class DbRememberPassWord {
         return list;
     }
 
-    public List<PasswordBean> queryList(String tabName) {
+    public List<PasswordBean> queryList(String type) {
         List<PasswordBean> list = mPasswordBeanDao.queryBuilder()
-                .where(PasswordBeanDao.Properties.TabName.eq(tabName))
+                .where(PasswordBeanDao.Properties.Type.eq(type))
                 .build()
                 .list();
         return list;
@@ -48,9 +50,10 @@ public class DbRememberPassWord {
         return load;
     }
 
-    public void insert(String tabName, String number, String passWord, String date, String tag1Name, String tag1,
+    public void insert(String type, String tabName, String number, String passWord, String date, String tag1Name, String tag1,
                        String tag2Name, String tag2, String tag3Name, String tag3) {
         PasswordBean passwordBean = new PasswordBean();
+        passwordBean.setType(type);
         passwordBean.setTabName(tabName);
         passwordBean.setNumber(number);
         passwordBean.setPassWord(passWord);
@@ -62,6 +65,7 @@ public class DbRememberPassWord {
         passwordBean.setTag2(tag2);
         passwordBean.setTag3(tag3);
         mPasswordBeanDao.insert(passwordBean);
+        Log.e("shen", "passwordBean=" + passwordBean);
     }
 
     public void delete(Long id) {
@@ -72,9 +76,10 @@ public class DbRememberPassWord {
         mPasswordBeanDao.deleteAll();
     }
 
-    public void update(Long id, String tabName, String number, String passWord, String date, String tag1Name, String tag1,
+    public void update(Long id, String type, String tabName, String number, String passWord, String date, String tag1Name, String tag1,
                        String tag2Name, String tag2, String tag3Name, String tag3) {
         PasswordBean load = mPasswordBeanDao.load(id);
+        load.setType(type);
         load.setTabName(tabName);
         load.setNumber(number);
         load.setPassWord(passWord);

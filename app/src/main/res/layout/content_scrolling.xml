@@ -14,6 +14,12 @@
         android:orientation="vertical">
 
         <com.lin.rememberpassword.widget.InputItemView
+            android:id="@+id/input_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"/>
+
+        <com.lin.rememberpassword.widget.InputItemView
             android:id="@+id/input_tab_name"
             android:layout_width="match_parent"
             android:layout_height="48dp"

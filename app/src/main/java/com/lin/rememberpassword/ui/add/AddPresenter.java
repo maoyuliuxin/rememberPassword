@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 
+import com.lin.rememberpassword.Utils.AppTypeUtils;
 import com.lin.rememberpassword.Utils.DialogUtil;
 import com.lin.rememberpassword.Utils.ToastUtils;
 import com.lin.rememberpassword.Utils.WenTiStringUtils;
@@ -29,6 +30,7 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
         long id = mView.getIntent().getLongExtra(AddActivity.ID_DATA, -1);
         if (id != -1) {
             PasswordBean passwordBean = DbRememberPassWord.get().getBeanById(id);
+            mView.getType().setText(passwordBean.getType());
             mView.getTabName().setText(passwordBean.getTabName());
             mView.getNumber().setText(passwordBean.getNumber());
             mView.getPsd().setText(passwordBean.getPassWord());
@@ -44,6 +46,12 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
 
     @Override
     public void initView() {
+        mView.getType().setItem("分类", "请输入应用类型", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectAppType();
+            }
+        });
         mView.getTabName().setItem("账户类型", "请输入密码类型", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +89,17 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
             }
         });
         mView.getTag3().setItem("备注3", "请输入备注", null);
+    }
+
+    private void selectAppType() {
+        final String[] types = AppTypeUtils.getType();
+        DialogUtil.setItemDialog(mView.getContext(), types, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mView.getType().setText(types[which]);
+                dialog.dismiss();
+            }
+        });
     }
 
     private void selectWenTi(final InputItemView view) {
@@ -123,13 +142,14 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
 
     @Override
     public void onFinish() {
-        if (TextUtils.isEmpty(mView.getTabName().getContent()) || TextUtils.isEmpty(mView.getDate().getContent()) || TextUtils.isEmpty(mView.getNumber().getContent()) || TextUtils.isEmpty(mView.getPsd().getContent())) {
-            ToastUtils.toast("请输入必填项：账户类型、账户、密码已经日期");
+        if (TextUtils.isEmpty(mView.getType().getContent()) || TextUtils.isEmpty(mView.getTabName().getContent()) || TextUtils.isEmpty(mView.getDate().getContent()) || TextUtils.isEmpty(mView.getNumber().getContent()) || TextUtils.isEmpty(mView.getPsd().getContent())) {
+            ToastUtils.toast("请输入必填项：分类、账户类型、账户、密码已经日期");
             return;
         }
         long id = mView.getIntent().getLongExtra(AddActivity.ID_DATA, -1);
         if (id == -1) {
-            DbRememberPassWord.get().insert(mView.getTabName().getContent(),
+            DbRememberPassWord.get().insert(mView.getType().getContent(),
+                    mView.getTabName().getContent(),
                     mView.getNumber().getContent(),
                     mView.getPsd().getContent(),
                     mView.getDate().getContent(),
@@ -141,6 +161,7 @@ public class AddPresenter extends BasePresenterImpl<AddContract.View> implements
                     mView.getTag3().getContent());
         } else {
             DbRememberPassWord.get().update(id,
+                    mView.getType().getContent(),
                     mView.getTabName().getContent(),
                     mView.getNumber().getContent(),
                     mView.getPsd().getContent(),
